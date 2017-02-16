@@ -33,5 +33,7 @@ namespace BusinessServices.Interface
         /// <returns></returns>
         bool DeleteByUserId(int userId);
         #endregion
+
+        User Authenticate(User user);
     }
 }

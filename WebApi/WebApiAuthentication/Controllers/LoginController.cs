@@ -1,13 +1,18 @@
 ﻿using System.Web.Http;
-using WebApiAuthentication.Models;
+using BusinessEntities;
+using BusinessServices.Concrete;
+using BusinessServices.Interface;
+using Resolver;
 
 namespace WebApiAuthentication.Controllers
 {
     public class LoginController : ApiController
     {
         //http://localhost:64188/api/login
-        public void Post(User user)
+        public User Post(User user)
         {
+            var service = DI.Resolve<ITokenServices>();
+            return service.Authenticate(user);
         }
 
         //http://localhost:64188/api/login/1

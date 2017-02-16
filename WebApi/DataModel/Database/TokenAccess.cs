@@ -29,5 +29,28 @@ namespace DataModel.Database
             return isValid && dt.Rows.Count == 1;
         }
 
+        public User Authenticate(User user)
+        {
+            var command = new SqlCommand("Authenticate")
+            {
+                CommandType = CommandType.StoredProcedure
+            };
+            command.Parameters.AddWithValue("@UserName", user.UserName);
+            command.Parameters.AddWithValue("@Password", user.Password);
+
+            var ds = Gateway.Instance.Submit(command);
+            var dt = ds.Tables["data"];
+
+
+            var userResult = new User();
+            bool isValid = false;
+            foreach (DataRow d in dt.Rows)
+            {
+                userResult.Name = d["name"].ToString();
+                userResult.Token = d["token"].ToString();
+            }
+
+            return userResult;
+        }
     }
 }

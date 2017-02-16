@@ -33,5 +33,11 @@ namespace BusinessServices.Concrete
             var isValid = ta.Validate(tokenId);
             return isValid;
         }
+
+        public User Authenticate(User user)
+        {
+            var ta = DI.Resolve<TokenAccess>();
+            return ta.Authenticate(user);
+        }
     }
 }
